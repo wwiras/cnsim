@@ -1,0 +1,36 @@
+# templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gossip-statefulset
+spec:
+  serviceName: "bcgossip-svc"
+  replicas: {{ .Values.totalNodes }}
+  selector:
+    matchLabels:
+      app: bcgossip
+  template:
+    metadata:
+      labels:
+        app: bcgossip
+      {{- if eq .Values.testType "bandwidth" }}
+      annotations:
+        kubernetes.io/ingress-bandwidth: {{ .Values.bandwidth }}
+        kubernetes.io/egress-bandwidth: {{ .Values.bandwidth }}
+      {{- end }}
+    spec:
+      containers:
+        - name: gossip-node
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 5050
+          env:
+            - name: NODES
+              value: "{{ .Values.totalNodes }}"
+          {{- if eq .Values.testType "memory" }}
+          resources:
+            requests:
+              memory: {{ .Values.memory.requests }}
+            limits:
+              memory: {{ .Values.memory.limits }}
+          {{- end }}
