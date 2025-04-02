@@ -90,7 +90,8 @@ From here, save the result to a *.csv file and store it in a google drive for da
 
 #### Step 6: Data Analysis and Virtualization
 Open new Google Colab and point it to the google drive where all the *.csv files have been saved (from Step 6). Execute
-data cleaning, analysis and virtualization here. All steps for data analysis and virtualization are shown
+data cleaning, analysis and virtualization here. All steps for data analysis and virtualization for 
+all tests (distribution, bandwidth, geographical and memory) are shown
  [here](https://github.com/wwiras/cnsim).
 
 > **_NOTE:_**  All data generated from this simulator can be found [here](https://github.com/wwiras/cnsim).
